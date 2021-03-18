@@ -53,13 +53,14 @@ export default function searchReducer(state= dataInicial, action){
 
 
 
-//::::: OBTENER PRODUCTOS
+//::::: OBTENER PRODUCTOS CONECTADO A BACK
 export const obtenerProductos = (valor) => async (dispatch, getState) => {
 
   
 
  try {
-      const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
+      const res= await  axios.get('http://localhost:4000/search')
+    //   axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
 
            dispatch({
             type:OBTENER_PRODUCTOS,
