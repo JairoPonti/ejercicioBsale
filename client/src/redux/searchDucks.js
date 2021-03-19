@@ -59,12 +59,12 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
   
 
  try {
-      const res= await  axios.get('http://localhost:4000/search')
+      const res= await  axios.get(`http://localhost:4000/search?q=${valor}`)
     //   axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
-
+         console.log(res.data)
            dispatch({
             type:OBTENER_PRODUCTOS,
-            payload: res.data.results,
+            payload: res.data,
             value: valor
           
        })

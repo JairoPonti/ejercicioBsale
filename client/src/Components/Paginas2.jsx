@@ -13,16 +13,18 @@ import {
 const Paginas = () => {
   const dispatch = useDispatch();
 
-  var productos = useSelector((store) => store.productos.array);
+  var productos = useSelector((store) => store.productos.array[0]);
   console.log(productos);
 
   var interruptor = useSelector((store) => store.productos.interruptor);
-  console.log(productos);
+  // console.log(productos);
 
   const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
 
   const value = useSelector((store) => store.productos.value);
   console.log(value);
+
+  
 
   var leyenda = (
     <h3 style={{ textAlign: "center", marginTop: "140px" }}>
@@ -38,17 +40,18 @@ const Paginas = () => {
   return (
     <div>
       <div className="row">
-        {productos.length > 0
+        { productos !== undefined
+        // productos.length > 0 
           ? productos.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
-                  img={e.thumbnail}
-                  title={e.title}
+                  img={e.url_image}
+                  title={e.name}
                   price={e.price}
-                  condition={e.condition}
-                  currentId={e.currency_id}
-                  availableQuantity={e.available_quantity}
-                  permalink={e.permalink}
+                  discount={e.discount}
+                  id={e.id}
+                  // availableQuantity={e.available_quantity}
+                  // permalink={e.permalink}
                 />
               </div>
             ))
@@ -57,25 +60,25 @@ const Paginas = () => {
       </div>
 
       <div className="row">
-        {prodFiltrados.length > 0
+        {/* {prodFiltrados.length > 0
           ? prodFiltrados.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
                   img={e.thumbnail}
                   title={e.title}
                   price={e.price}
-                  condition={e.condition}
-                  currentId={e.currency_id}
-                  availableQuantity={e.available_quantity}
-                  permalink={e.permalink}
+                  discount={e.discount}
+                  id={e.id}
+                  // availableQuantity={e.available_quantity}
+                  // permalink={e.permalink}
                 />
               </div>
             ))
-          : null}
+          : null} */}
 
   
       </div>
-      {productos.length > 0 ? (
+      {/* {productos.length > 0 ? (
           <div style={{ textAlign: "center" }}>
             <button
               className="btn active cyan darken-3"
@@ -107,7 +110,7 @@ const Paginas = () => {
               anteriores
             </button>
           </div>
-        ) : null}
+        ) : null} */}
     </div>
   );
 };
