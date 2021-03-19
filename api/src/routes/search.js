@@ -8,35 +8,24 @@ const { Sequelize } = require('sequelize')
 
 // Ruta a /search
 server.get('/', (req, res, next) => {
-	// conn.query('SELECT * FROM product').then((data) => {
-	// 	console.log('estoy adentro y tengo' + data)
-	// 	res.send(data)
-	// 	})
-//  console.log(req.query)
-//  var parametro = "'" + req.query.q + "'"
-//  conn.query('SELECT * FROM product WHERE name ='+ parametro).then((data) => {
-// 		console.log('estoy adentro y tengo' + data)
-// 		res.send(data)
-// 		}) 
 
- var param = "'" + req.query.q + "'"
-// var parametro = '%' + req.query.q + '%';
-Product.findAll({
-  where: {
-    name:{ 
-		[Op.like]: param
+	if(!req.query.q) {
+		conn.query('SELECT * FROM product').then((data) => {
+			console.log('estoy adentro y tengo' + data)
+			res.send(data)
+			})
+	} else {
+		var parametro = "%" + req.query.q + "%";
+		parametro = "'" + parametro + "'";
+		console.log(parametro);
+		conn.query("SELECT * FROM product WHERE name LIKE " + parametro).then((data) => {
+			 console.log('estoy adentro y tengo' + data)
+			 res.send(data)
+			 })
 	}
-  }
-}).then(products => {
-	res.send(products)
-  }
-	).catch(error =>{ 
-		return res.status(404).json(error)
-		})
-
-
 
 });
+
 
 // Ruta a /search/lower/price
 // server.get('/', (req, res, next) => {
