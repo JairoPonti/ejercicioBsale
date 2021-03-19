@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,16 +13,16 @@ import {
 const Paginas = () => {
   const dispatch = useDispatch();
 
-  var productos = useSelector((store) => store.productos.array[0]);
+  var productos = useSelector((store) => store.productos.array);
   console.log(productos);
 
   var interruptor = useSelector((store) => store.productos.interruptor);
   // console.log(productos);
 
   const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
- console.log(prodFiltrados);
+//  console.log(prodFiltrados);
   const value = useSelector((store) => store.productos.value);
-  console.log(value);
+  // console.log(value);
 
   
 
@@ -37,11 +37,16 @@ const Paginas = () => {
     leyenda = null;
   }
 
+// useEffect(() => {
+//   console.log('RENDER')
+// }, [prodFiltrados])
+
+
   return (
     <div>
       <div className="row">
-        { productos !== undefined && prodFiltrados.length === 0
-        // productos.length > 0 
+        { productos !== undefined &&
+        productos.length > 0 
           ? productos.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
@@ -50,8 +55,6 @@ const Paginas = () => {
                   price={e.price}
                   discount={e.discount}
                   id={e.id}
-                  // availableQuantity={e.available_quantity}
-                  // permalink={e.permalink}
                 />
               </div>
             ))
@@ -59,7 +62,7 @@ const Paginas = () => {
   
       </div>
 
-      <div className="row">
+      {/* <div className="row">
         {prodFiltrados.length > 0
           ? prodFiltrados.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
@@ -69,15 +72,13 @@ const Paginas = () => {
                   price={e.price}
                   discount={e.discount}
                   id={e.id}
-                  // availableQuantity={e.available_quantity}
-                  // permalink={e.permalink}
                 />
               </div>
             ))
           : null}
 
   
-      </div>
+      </div> */}
       {/* {productos.length > 0 ? (
           <div style={{ textAlign: "center" }}>
             <button

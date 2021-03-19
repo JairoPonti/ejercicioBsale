@@ -11,7 +11,7 @@ const Catalogo = () => {
     var arr = useSelector((store) => store.productos.array[0]);
     console.log(arr);
 	const value = useSelector(store => store.productos.value)
-	console.log(value)
+	// console.log(value)
 
 	const res = useSelector(store => store.productos.array ) 
 	// console.log(res)
@@ -27,7 +27,7 @@ const Catalogo = () => {
 						<i className="material-icons">attach_money</i>Menor a Mayor
 				</button>
 				
-				<button type="submit" className="btn yellow button" onClick={() => dispatch(paraFiltrarMayorP(value))}>
+				<button type="submit" className="btn yellow button" onClick={() => dispatch(paraFiltrarMayorP())}>
 						<i className="material-icons ">attach_money</i>Mayor a Menor
           			</button> 
 					   <button type="submit" className="btn yellow button" onClick={() => dispatch(obtenerProductos(value))}>

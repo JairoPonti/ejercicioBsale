@@ -41,9 +41,9 @@ export default function searchReducer(state= dataInicial, action){
     case PARA_FILTRAR_NUEVOS:
          return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false }
     case PARA_FILTRAR_MENOR_PRECIO:
-        return {...state,  resFiltrados: action.payload, interruptor: false}
+        return {...state,  array: action.payload, interruptor: false}
     case PARA_FILTRAR_MAYOR_PRECIO:
-          return {...state,  resFiltrados: action.payload, interruptor: false}
+          return {...state, array: action.payload, interruptor: false}
         default:
             return state
         
@@ -61,10 +61,10 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
  try {
       const res= await  axios.get(`http://localhost:4000/search?q=${valor}`)
     //   axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
-         console.log(res.data)
+         console.log(res.data[0])
            dispatch({
             type:OBTENER_PRODUCTOS,
-            payload: res.data,
+            payload: res.data[0],
             value: valor
           
        })
@@ -210,25 +210,21 @@ export const paraFiltrarMenorP = () => (dispatch, getState) => {
       console.log(arr)
               dispatch({
                type:PARA_FILTRAR_MENOR_PRECIO,
-               payload: arr[0].sort(function(prev, next) { return prev.price - next.price }),
+               payload: arr.sort(function(prev, next) { return prev.price - next.price }),
 
               })
    }
 
-   export const paraFiltrarMayorP = (valor) => async (dispatch, getState) => {
+   export const paraFiltrarMayorP = () => (dispatch, getState) => {
 
-    try {
-         const res= await  axios.get(`http://localhost:4000/search?q=${valor}`) // busqueda luego de q= + req.query.q + 
+    const arra = getState().productos.array
+    console.log(arra)
+            dispatch({
+             type:PARA_FILTRAR_MAYOR_PRECIO,
+             payload: arra.sort(function(prev, next) { return next.price - prev.price }),
+
+            })
+ }
    
-              dispatch({
-               type:PARA_FILTRAR_MAYOR_PRECIO,
-               payload: res.data.results.sort(function(prev, next) { return next.price - prev.price }),
-               value: valor
-             
-          })
-       } catch (error) {
-           console.log(error)
-       }
-   }
 
 
