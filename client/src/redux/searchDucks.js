@@ -41,9 +41,9 @@ export default function searchReducer(state= dataInicial, action){
     case PARA_FILTRAR_NUEVOS:
          return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false }
     case PARA_FILTRAR_MENOR_PRECIO:
-        return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false}
+        return {...state,  resFiltrados: action.payload, interruptor: false}
     case PARA_FILTRAR_MAYOR_PRECIO:
-          return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false}
+          return {...state,  resFiltrados: action.payload, interruptor: false}
         default:
             return state
         
@@ -205,20 +205,14 @@ export const anterioresProdFil = ( value) => async (dispatch, getState) => {
 
 //FILTROS DE PRECIO ASC Y DESC
 
-export const paraFiltrarMenorP = (valor) => async (dispatch, getState) => {
-
-    try {
-            const res= await  axios.get(`http://localhost:4000/search?q=${valor}`) // busqueda luego de q= + req.query.q + 
-   
+export const paraFiltrarMenorP = () => (dispatch, getState) => {
+    const arr = getState().productos.array
+      console.log(arr)
               dispatch({
                type:PARA_FILTRAR_MENOR_PRECIO,
-               payload: res.data.results.sort(function(prev, next) { return prev.price - next.price }),
-               value: valor
-             
-          })
-       } catch (error) {
-           console.log(error)
-       }
+               payload: arr[0].sort(function(prev, next) { return prev.price - next.price }),
+
+              })
    }
 
    export const paraFiltrarMayorP = (valor) => async (dispatch, getState) => {

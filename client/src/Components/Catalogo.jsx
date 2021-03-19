@@ -6,12 +6,15 @@ import {paraFiltrarUsados, paraFiltrarNuevos, paraFiltrarMayorP, paraFiltrarMeno
 
 
 const Catalogo = () => {
-	
+	const dispatch = useDispatch();
+
+    var arr = useSelector((store) => store.productos.array[0]);
+    console.log(arr);
 	const value = useSelector(store => store.productos.value)
 	console.log(value)
-	const dispatch = useDispatch()
+
 	const res = useSelector(store => store.productos.array ) 
-	console.log(res)
+	// console.log(res)
 	
 
 	return (
@@ -20,7 +23,7 @@ const Catalogo = () => {
 				<h5 style= {{display: "flex", justifyContent:"center"}}>Ordená los productos</h5>
 				<br/>
 				<div style= {{display: "flex", justifyContent:"center"}}>
-				 <button type="submit" className="btn yellow button" onClick={() => dispatch(paraFiltrarMenorP(value))}>
+				 <button type="submit" className="btn yellow button" onClick={() => dispatch(paraFiltrarMenorP())}>
 						<i className="material-icons">attach_money</i>Menor a Mayor
 				</button>
 				
