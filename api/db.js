@@ -10,6 +10,14 @@ const sequelize = new Sequelize('bsale_test', 'bsale_test', 'bsale_test', {
     dialect: 'mysql'
   })
 
+  sequelize.authenticate()
+  .then(() => {
+    console.log('Conexión establecida');
+  })
+  .catch(error => {
+    console.error('No se pudo conectar a la base:', error);
+  })
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];

@@ -59,12 +59,12 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
   
 
  try {
-      const res= await  axios.get('http://localhost:4000/search')
+      const res= await  axios.get(`http://localhost:4000/search?q=${valor}`)
     //   axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
-
+         console.log(res.data)
            dispatch({
             type:OBTENER_PRODUCTOS,
-            payload: res.data.results,
+            payload: res.data,
             value: valor
           
        })
@@ -208,7 +208,7 @@ export const anterioresProdFil = ( value) => async (dispatch, getState) => {
 export const paraFiltrarMenorP = (valor) => async (dispatch, getState) => {
 
     try {
-         const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor  ) // busqueda luego de q= + req.query.q + 
+            const res= await  axios.get(`http://localhost:4000/search?q=${valor}`) // busqueda luego de q= + req.query.q + 
    
               dispatch({
                type:PARA_FILTRAR_MENOR_PRECIO,
@@ -224,7 +224,7 @@ export const paraFiltrarMenorP = (valor) => async (dispatch, getState) => {
    export const paraFiltrarMayorP = (valor) => async (dispatch, getState) => {
 
     try {
-         const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor  ) // busqueda luego de q= + req.query.q + 
+         const res= await  axios.get(`http://localhost:4000/search?q=${valor}`) // busqueda luego de q= + req.query.q + 
    
               dispatch({
                type:PARA_FILTRAR_MAYOR_PRECIO,
