@@ -20,7 +20,7 @@ const Paginas = () => {
   // console.log(productos);
 
   const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
-
+ console.log(prodFiltrados);
   const value = useSelector((store) => store.productos.value);
   console.log(value);
 
@@ -40,7 +40,7 @@ const Paginas = () => {
   return (
     <div>
       <div className="row">
-        { productos !== undefined
+        { productos !== undefined && prodFiltrados.length === 0
         // productos.length > 0 
           ? productos.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
@@ -60,11 +60,11 @@ const Paginas = () => {
       </div>
 
       <div className="row">
-        {/* {prodFiltrados.length > 0
+        {prodFiltrados.length > 0
           ? prodFiltrados.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
-                  img={e.thumbnail}
+                  img={e.url_image}
                   title={e.title}
                   price={e.price}
                   discount={e.discount}
@@ -74,7 +74,7 @@ const Paginas = () => {
                 />
               </div>
             ))
-          : null} */}
+          : null}
 
   
       </div>
