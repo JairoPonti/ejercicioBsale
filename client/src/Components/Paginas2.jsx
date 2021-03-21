@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,13 +11,21 @@ import {
 
 
 const Paginas = () => {
+
+  const [ sig , setSig] = useState([]);
+  const [ ant , setAnt] = useState([]);
+  const [ a , setA] = useState(7);
+  const [ b , setB] = useState(14);
+  const [ c , setC] = useState(a);
+  const [ d , setD] = useState(b);
+  const [ interruptor , setInterruptor] = useState(true);
   const dispatch = useDispatch();
 
   var productos = useSelector((store) => store.productos.array);
-  console.log(productos);
 
-  var interruptor = useSelector((store) => store.productos.interruptor);
-  // console.log(productos);
+
+  // var interruptor = useSelector((store) => store.productos.interruptor);
+  console.log(productos);
 
   const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
 //  console.log(prodFiltrados);
@@ -37,17 +45,66 @@ const Paginas = () => {
     leyenda = null;
   }
 
-// useEffect(() => {
-//   console.log('RENDER')
-// }, [prodFiltrados])
+var prodPaginacion = []
+  prodPaginacion = productos.slice(0, 7)
+  // console.log(prodPaginacion)
 
+ 
+  // if(interruptor === true){
+  //  var a =0
+  //  var b =7
+  // } 
 
+  // if(interruptor === true){
+  //   var c =0
+  //   var d =7
+  //  } 
+
+   console.log ('Soy a y b del scoope global ' + a + b)
+  //  console.log ('Soy c y d del scoope global ' + c + d)
+
+   function siguientes(productos){
+    
+   setA(a+7)
+   setB(b+7)
+     console.log ('Soy a y b dentro de f de sig ' + a + b)
+      prodPaginacion = productos.slice(a, b);
+    //  setInterruptor(false)
+      return  prodPaginacion
+   }
+
+   function anteriores(productos){
+    
+    setC(c-7)
+   setD(d-7)
+     console.log ('Soy c y d dentro de f anteriores ' + c + d)
+      prodPaginacion = productos.slice(c, d);
+     setInterruptor(false)
+      return  prodPaginacion
+   }
+   
+   const handleSiguientes = () => {
+    siguientes(productos);
+    setSig(prodPaginacion)
+    console.log('Ejecuté siguientes')
+    console.log(prodPaginacion)
+  };
+
+  const handleAnteriores = () => {
+    anteriores(productos);
+    setAnt(prodPaginacion)
+    console.log('Ejecuté Anteriores')
+    console.log(prodPaginacion)
+  };
+ 
+  
+  console.log(sig)
+  console.log(ant)
   return (
     <div>
       <div className="row">
-        { productos !== undefined &&
-        productos.length > 0 
-          ? productos.map((e) => (
+        { prodPaginacion &&  sig.length === 0 ? 
+             prodPaginacion.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
                   img={e.url_image}
@@ -58,9 +115,53 @@ const Paginas = () => {
                 />
               </div>
             ))
+          :  sig.length > 0 ?
+          sig.map((e) => (
+            <div className="col s13 m6 l4 " key={e.id}>
+              <ProductCard
+                img={e.url_image}
+                title={e.name}
+                price={e.price}
+                discount={e.discount}
+                id={e.id}
+              />
+            </div>
+           ))
+           :  ant.length > 0 ?
+           sig.map((e) => (
+             <div className="col s13 m6 l4 " key={e.id}>
+               <ProductCard
+                 img={e.url_image}
+                 title={e.name}
+                 price={e.price}
+                 discount={e.discount}
+                 id={e.id}
+               />
+             </div>
+            ))
           : leyenda}
   
       </div>
+
+      <div style={{ textAlign: "center", position: "sticky"}}>
+            <button
+              className="btn active cyan darken-3"
+              onClick={handleAnteriores}
+            >
+              anteriores
+            </button>
+            <button
+              className="btn active cyan darken-3"
+              onClick={handleSiguientes}
+            >
+              siguientes
+            </button>
+          </div>
+
+
+
+
+
 
       {/* <div className="row">
         {prodFiltrados.length > 0
