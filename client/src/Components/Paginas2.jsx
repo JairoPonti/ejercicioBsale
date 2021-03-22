@@ -1,47 +1,58 @@
 import React, { Component, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios'
-import {
-  obtenerProductos,
-  siguientesProductos,
-  anterioresProductos,
-  siguientesProdFil,
-  anterioresProdFil,
-} from "../redux/searchDucks";
+import axios from "axios";
+
+
 
 
 const Paginas = () => {
 
-  const [ sig , setSig] = useState([]);
-  const [ ant , setAnt] = useState([]);
-  const [ a , setA] = useState(7);
-  const [ b , setB] = useState(14);
-  const [ c , setC] = useState(a);
-  const [ d , setD] = useState(b);
-  const [ interruptor , setInterruptor] = useState(true);
+  // const [sig, setSig] = useState([]);
+  // const [ant, setAnt] = useState([]);
+  const [a, setA] = useState(7);
+  const [b, setB] = useState(14);
+  // const [c, setC] = useState(a);
+  // const [d, setD] = useState(b);
+  const [interruptor, setInterruptor] = useState(true);
   const dispatch = useDispatch();
-
+  
   var productos = useSelector((store) => store.productos.array);
+    
+  // if(productos.length > 0){
+  //   var prod =  productos.slice(0,7)
+  // } else {
+  //   prod = []
+  // }
 
+  
 
-  // var interruptor = useSelector((store) => store.productos.interruptor);
-  console.log(productos);
+  var prod =  productos.slice(0,7)
+  
+  const [prodPaginacion, setProdpaginacion] = useState([])
+
+  // if(prod.length !== 0 && prodPaginacion.length === 0){
+  //   setA(7)
+  //   setB(14)
+  // }
+ 
+  console.log( prod)
+  console.log( prodPaginacion)
 
   const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
-//  console.log(prodFiltrados);
+  //  console.log(prodFiltrados);
   const value = useSelector((store) => store.productos.value);
   // console.log(value);
 
-
- 
-   var val = '2'
-  async function categorySearch (){
+  var val = "2";
+  async function categorySearch() {
     try {
-      const res = await  axios.get(`http://localhost:4000/search/category?q=${val}`)
-      console.log(res.data[0])
+      const res = await axios.get(
+        `http://localhost:4000/search/category?q=${val}`
+      );
+      console.log(res.data[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -56,66 +67,59 @@ const Paginas = () => {
     leyenda = null;
   }
 
-var prodPaginacion = []
-  prodPaginacion = productos.slice(0, 7)
-  // console.log(prodPaginacion)
-
  
-  // if(interruptor === true){
-  //  var a =0
-  //  var b =7
-  // } 
 
-  // if(interruptor === true){
-  //   var c =0
-  //   var d =7
-  //  } 
 
-   console.log ('Soy a y b del scoope global ' + a + b)
+  console.log("Soy a y b del scoope global " + a + b);
   //  console.log ('Soy c y d del scoope global ' + c + d)
 
-   function siguientes(productos){
-    
-   setA(a+7)
-   setB(b+7)
-     console.log ('Soy a y b dentro de f de sig ' + a + b)
-      prodPaginacion = productos.slice(a, b);
-    //  setInterruptor(false)
-      return  prodPaginacion
-   }
+  function siguientes(productos) {
+    setA(a + 7);
+    setB(b + 7);
+    prod = []
+    console.log("Soy a y b dentro de f de sig " + a + b);
+    setProdpaginacion (productos.slice(a, b));
 
-   function anteriores(productos){
-    
-    setC(c-7)
-   setD(d-7)
-     console.log ('Soy c y d dentro de f anteriores ' + c + d)
-      prodPaginacion = productos.slice(c, d);
-     setInterruptor(false)
-      return  prodPaginacion
-   }
-   
-   const handleSiguientes = () => {
+    return prodPaginacion;
+  }
+
+  function anteriores(productos) {
+    setA(a - 7);
+    setB(b - 7);
+    prod = []
+    console.log("Soy a y b dentro de f anteriores " + a + b);
+    setProdpaginacion (productos.slice(a, b));
+    return prodPaginacion;
+  }
+
+  const handleSiguientes = () => {
     siguientes(productos);
-    setSig(prodPaginacion)
-    console.log('Ejecuté siguientes')
-    console.log(prodPaginacion)
+    // setSig(prodPaginacion);
+    setInterruptor(false);
+    console.log("Ejecuté siguientes");
+    // console.log(prodPaginacion);
   };
 
   const handleAnteriores = () => {
     anteriores(productos);
-    setAnt(prodPaginacion)
-    console.log('Ejecuté Anteriores')
-    console.log(prodPaginacion)
+    // setAnt(prodPaginacion);
+    console.log("Ejecuté Anteriores");
+    // setInterruptor(false)
   };
- 
-  
-  console.log(sig)
-  console.log(ant)
+
+  // useEffect(() => {
+  //   console.log("Me rendericé");
+  // }, [ant, handleAnteriores]);
+
+  // console.log(sig);
+  // console.log(ant);
+  console.log(interruptor);
+
   return (
     <div>
-      <div className="row">
-        { prodPaginacion &&  sig.length === 0 ? 
-             prodPaginacion.map((e) => (
+       <div className="row">
+        {prod && interruptor === true
+          ? prod.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
                 <ProductCard
                   img={e.url_image}
@@ -126,104 +130,37 @@ var prodPaginacion = []
                 />
               </div>
             ))
-          :  sig.length > 0 ?
-          sig.map((e) => (
-            <div className="col s13 m6 l4 " key={e.id}>
-              <ProductCard
-                img={e.url_image}
-                title={e.name}
-                price={e.price}
-                discount={e.discount}
-                id={e.id}
-              />
-            </div>
-           ))
-           :  ant.length > 0 ?
-           sig.map((e) => (
-             <div className="col s13 m6 l4 " key={e.id}>
-               <ProductCard
-                 img={e.url_image}
-                 title={e.name}
-                 price={e.price}
-                 discount={e.discount}
-                 id={e.id}
-               />
-             </div>
-            ))
-          : leyenda}
-  
+            : prodPaginacion.length > 0 && interruptor === false
+            ? prodPaginacion.map((e) => (
+                <div className="col s13 m6 l4 " key={e.id}>
+                  <ProductCard
+                    img={e.url_image}
+                    title={e.name}
+                    price={e.price}
+                    discount={e.discount}
+                    id={e.id}
+                  />
+                </div>
+              ))
+            : null}
+         </div> 
+
+      <div style={{ textAlign: "center", position: "sticky" }}>
+
+        { a !== 0 ?
+        ( <button
+          className="btn active cyan darken-3"
+          onClick={handleAnteriores} // PROBANDO CATEGORY
+        >
+          anteriores
+        </button> )
+        : null }
+        { prod.length !== 0 ?
+        (<button className="btn active cyan darken-3" onClick={handleSiguientes}>
+          siguientes
+        </button>)
+        : leyenda}
       </div>
-
-      <div style={{ textAlign: "center", position: "sticky"}}>
-            <button
-              className="btn active cyan darken-3"
-              onClick={handleAnteriores}   // PROBANDO CATEGORY
-            >
-              anteriores
-            </button>
-            <button
-              className="btn active cyan darken-3"
-              onClick={handleSiguientes}
-            >
-              siguientes
-            </button>
-          </div>
-
-
-
-
-
-
-      {/* <div className="row">
-        {prodFiltrados.length > 0
-          ? prodFiltrados.map((e) => (
-              <div className="col s13 m6 l4 " key={e.id}>
-                <ProductCard
-                  img={e.url_image}
-                  title={e.title}
-                  price={e.price}
-                  discount={e.discount}
-                  id={e.id}
-                />
-              </div>
-            ))
-          : null}
-
-  
-      </div> */}
-      {/* {productos.length > 0 ? (
-          <div style={{ textAlign: "center" }}>
-            <button
-              className="btn active cyan darken-3"
-              onClick={() => dispatch(anterioresProductos(value))}
-            >
-              anteriores
-            </button>
-            <button
-              className="btn active cyan darken-3"
-              onClick={() => dispatch(siguientesProductos(value))}
-            >
-              siguientes
-            </button>
-          </div>
-        ) : null}
-
-      {prodFiltrados.length > 0 && interruptor === false ? (
-          <div style={{ textAlign: "center", position: "sticky"}}>
-            <button
-              className="btn active cyan darken-3"
-              onClick={() => dispatch(siguientesProdFil(value))}
-            >
-              siguientes
-            </button>
-            <button
-              className="btn active cyan darken-3"
-              onClick={() => dispatch(anterioresProdFil(value))}
-            >
-              anteriores
-            </button>
-          </div>
-        ) : null} */}
     </div>
   );
 };
