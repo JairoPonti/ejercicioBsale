@@ -44,15 +44,19 @@ server.get('/', (req, res, next) => {
 
 // Ruta a /search/category
 
-// server.get('/', (req, res, next) => { //Definir si será por query o body
+server.get('/category', (req, res, next) => { //Definir si será por query o body
 
-//  console.log(req.query)
+ var parametro = req.query.q 
+ parametro = "'" + parametro + "'";	
+ console.log(req.query)
 
-//  conn.query('SELECT * FROM product WHERE id ='+ 52).then((data) => { //Luego del id=, debe recibir dinámicamente el número de categoría
-// 		console.log('estoy adentro y tengo' + data)
-// 		res.send(data)
-// 		}) 
 
-// 	});
+	conn.query("SELECT * FROM product WHERE category=" + parametro).then((data) => {
+		console.log('estoy adentro y tengo' + data)
+		res.send(data)
+		})
+
+
+	});
 
 module.exports = server

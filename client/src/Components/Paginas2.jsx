@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios'
 import {
   obtenerProductos,
   siguientesProductos,
@@ -32,7 +33,17 @@ const Paginas = () => {
   const value = useSelector((store) => store.productos.value);
   // console.log(value);
 
-  
+
+ 
+   var val = '2'
+  async function categorySearch (){
+    try {
+      const res = await  axios.get(`http://localhost:4000/search/category?q=${val}`)
+      console.log(res.data[0])
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   var leyenda = (
     <h3 style={{ textAlign: "center", marginTop: "140px" }}>
@@ -146,7 +157,7 @@ var prodPaginacion = []
       <div style={{ textAlign: "center", position: "sticky"}}>
             <button
               className="btn active cyan darken-3"
-              onClick={handleAnteriores}
+              onClick={handleAnteriores}   // PROBANDO CATEGORY
             >
               anteriores
             </button>

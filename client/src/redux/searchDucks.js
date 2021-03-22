@@ -14,32 +14,29 @@ const dataInicial = {
 
 //Types
 const OBTENER_PRODUCTOS    = 'OBTENER_PRODUCTOS'
-const SIGUIENTES_PRODUCTOS = 'SIGUIENTES_PRODUCTOS'
-const ANTERIORES_PRODUCTOS = 'ANTERIORES_PRODUCTOS'
-const PARA_FILTRAR_USADOS  = 'PARA_FILTRAR_USADOS'
-const PARA_FILTRAR_NUEVOS  = 'PARA_FILTRAR_NUEVOS'
-const SIGUIENTES_PRODUCTOS_FILTRADOS = 'SIGUIENTES_PRODUCTOS_FILTRADOS'
-const ANTERIORES_PRODUCTOS_FILTRADOS = 'ANTERIORES_PRODUCTOS_FILTRADOS' 
 const PARA_FILTRAR_MENOR_PRECIO = 'PARA_FILTRAR_MENOR_PRECIO'
 const PARA_FILTRAR_MAYOR_PRECIO = 'PARA_FILTRAR_MAYOR_PRECIO'
+const CATEGORY_SEARCH = 'CATEGORY_SEARCH'
+// const SIGUIENTES_PRODUCTOS = 'SIGUIENTES_PRODUCTOS'
+// const ANTERIORES_PRODUCTOS = 'ANTERIORES_PRODUCTOS'
+// const SIGUIENTES_PRODUCTOS_FILTRADOS = 'SIGUIENTES_PRODUCTOS_FILTRADOS'
+// const ANTERIORES_PRODUCTOS_FILTRADOS = 'ANTERIORES_PRODUCTOS_FILTRADOS' 
 
 //Reducer
 export default function searchReducer(state= dataInicial, action){
     switch(action.type){
     case OBTENER_PRODUCTOS:
         return {...state, array: action.payload, value: action.value, interruptor: true}
-    case SIGUIENTES_PRODUCTOS:
-        return {...state, array: action.payload.array, offset: action.payload.offset, value: action.payload.value}
-        case SIGUIENTES_PRODUCTOS_FILTRADOS:
-            return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset, value: action.payload.value}
-    case ANTERIORES_PRODUCTOS:
-        return {...state, array: action.payload.array, offset: action.payload.offset}
-    case ANTERIORES_PRODUCTOS_FILTRADOS:
-            return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset}
-    case PARA_FILTRAR_USADOS:
-        return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false}
-    case PARA_FILTRAR_NUEVOS:
-         return {...state,  resFiltrados: action.payload, value: action.value, interruptor: false }
+    // case SIGUIENTES_PRODUCTOS:
+    //     return {...state, array: action.payload.array, offset: action.payload.offset, value: action.payload.value}
+    //     case SIGUIENTES_PRODUCTOS_FILTRADOS:
+    //         return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset, value: action.payload.value}
+    // case ANTERIORES_PRODUCTOS:
+    //     return {...state, array: action.payload.array, offset: action.payload.offset}
+    // case ANTERIORES_PRODUCTOS_FILTRADOS:
+    //         return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset}
+    case CATEGORY_SEARCH:
+        return {...state,  array: action.payload, interruptor: false}
     case PARA_FILTRAR_MENOR_PRECIO:
         return {...state,  array: action.payload, interruptor: false}
     case PARA_FILTRAR_MAYOR_PRECIO:
@@ -57,7 +54,6 @@ export default function searchReducer(state= dataInicial, action){
 export const obtenerProductos = (valor) => async (dispatch, getState) => {
 
   
-
  try {
       const res= await  axios.get(`http://localhost:4000/search?q=${valor}`)
     //   axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&limit=30' ) // busqueda luego de q= + req.query.q + 
@@ -73,139 +69,28 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
     }
 }
 
- //:::: SIGUIENTES Y ANTERIORES
+//:::OBTENER PRODUCTOS POR CATEGORIA
 
-export const siguientesProductos = ( valor) => async (dispatch, getState) => {
-    
-    
-    // console.log('getState', getState().productos.limit)
-   const offset = getState().productos.offset
-   const siguientes = offset + 30
-
- try {
-      const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&offset=' + siguientes + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-           dispatch({
-            type:SIGUIENTES_PRODUCTOS,
-            payload: {
-                array:res.data.results,
-                offset: siguientes,
-                value: valor
-            }
-       })
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-
-export const anterioresProductos = ( value) => async (dispatch, getState) => {
-    
-    
-    // console.log('getState', getState().productos.limit)
-   const offset = getState().productos.offset
-   const anteriores = offset - 30
-
- try {
-      const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + value + '&offset=' + anteriores + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-           dispatch({
-            type:ANTERIORES_PRODUCTOS,
-            payload: {
-                array:res.data.results,
-                offset: anteriores
-            }
-       })
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-//Ver usados
-export const paraFiltrarUsados = (valor) => async (dispatch, getState) => {
-
-   try {
-         const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor  ) // busqueda luego de q= + req.query.q + 
-   
-              dispatch({
-               type:PARA_FILTRAR_USADOS,
-               payload: res.data.results.filter(producto => producto.condition === 'used'),
-               value: valor
-             
-          })
-       } catch (error) {
-           console.log(error)
-       }
-   }
-
-//Ver nuevos
-   export const paraFiltrarNuevos = (valor) => async (dispatch, getState) => {
+export const categorySearch = (val) => async (dispatch) => {
 
     try {
-         const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor  ) // busqueda luego de q= + req.query.q + 
-   
-              dispatch({
-               type:PARA_FILTRAR_NUEVOS,
-               payload: res.data.results.filter(producto => producto.condition === 'new'),
-               value: valor
-             
-          })
-       } catch (error) {
-           console.log(error)
-       }
-   }
-
- //:::: SIGUIENTES Y ANTERIORES DE PROD FILTRADOS
- 
- export const siguientesProdFil = ( valor) => async (dispatch, getState) => {
-    
-    
-    // console.log('getState', getState().productos.limit)
-   const offset = getState().productos.offsetFil
-   const siguientes = offset + 30
-
- try {
-      const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&offset=' + siguientes + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-           dispatch({
-            type:SIGUIENTES_PRODUCTOS_FILTRADOS,
-            payload: {
-                resFiltrados:res.data.results,
-                offset: siguientes,
-                value: valor
-            }
-       })
-    } catch (error) {
-        console.log(error)
-    }
+		const res = await  axios.get(`http://localhost:4000/search/category?q=${val}`)
+		console.log(res.data[0])
+        dispatch({
+            type:CATEGORY_SEARCH,
+            payload: res.data[0],
+           
+        })
+	  } catch (error) {
+		console.log(error)
+	  }
 }
 
-
-export const anterioresProdFil = ( value) => async (dispatch, getState) => {
-    
-    
-    // console.log('getState', getState().productos.limit)
-   const offset = getState().productos.offsetFil
-   const anteriores = offset - 30
-
- try {
-      const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + value + '&offset=' + anteriores + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-           dispatch({
-            type:ANTERIORES_PRODUCTOS_FILTRADOS,
-            payload: {
-                resFiltrados:res.data.results,
-                offset: anteriores
-            }
-       })
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 //FILTROS DE PRECIO ASC Y DESC
 
 export const paraFiltrarMenorP = () => (dispatch, getState) => {
+    
     const arr = getState().productos.array
       console.log(arr)
               dispatch({
@@ -226,5 +111,108 @@ export const paraFiltrarMenorP = () => (dispatch, getState) => {
             })
  }
    
+
+
+
+
+
+ //:::: SIGUIENTES Y ANTERIORES
+
+// export const siguientesProductos = ( valor) => async (dispatch, getState) => {
+    
+    
+//     // console.log('getState', getState().productos.limit)
+//    const offset = getState().productos.offset
+//    const siguientes = offset + 30
+
+//  try {
+//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&offset=' + siguientes + '&limit=30') // busqueda luego de q= + req.query.q + 
+
+//            dispatch({
+//             type:SIGUIENTES_PRODUCTOS,
+//             payload: {
+//                 array:res.data.results,
+//                 offset: siguientes,
+//                 value: valor
+//             }
+//        })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+
+// export const anterioresProductos = ( value) => async (dispatch, getState) => {
+    
+    
+//     // console.log('getState', getState().productos.limit)
+//    const offset = getState().productos.offset
+//    const anteriores = offset - 30
+
+//  try {
+//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + value + '&offset=' + anteriores + '&limit=30') // busqueda luego de q= + req.query.q + 
+
+//            dispatch({
+//             type:ANTERIORES_PRODUCTOS,
+//             payload: {
+//                 array:res.data.results,
+//                 offset: anteriores
+//             }
+//        })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+
+ //:::: SIGUIENTES Y ANTERIORES DE PROD FILTRADOS
+ 
+//  export const siguientesProdFil = ( valor) => async (dispatch, getState) => {
+    
+    
+//     // console.log('getState', getState().productos.limit)
+//    const offset = getState().productos.offsetFil
+//    const siguientes = offset + 30
+
+//  try {
+//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&offset=' + siguientes + '&limit=30') // busqueda luego de q= + req.query.q + 
+
+//            dispatch({
+//             type:SIGUIENTES_PRODUCTOS_FILTRADOS,
+//             payload: {
+//                 resFiltrados:res.data.results,
+//                 offset: siguientes,
+//                 value: valor
+//             }
+//        })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+
+// export const anterioresProdFil = ( value) => async (dispatch, getState) => {
+    
+    
+//     // console.log('getState', getState().productos.limit)
+//    const offset = getState().productos.offsetFil
+//    const anteriores = offset - 30
+
+//  try {
+//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + value + '&offset=' + anteriores + '&limit=30') // busqueda luego de q= + req.query.q + 
+
+//            dispatch({
+//             type:ANTERIORES_PRODUCTOS_FILTRADOS,
+//             payload: {
+//                 resFiltrados:res.data.results,
+//                 offset: anteriores
+//             }
+//        })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+
 
 
