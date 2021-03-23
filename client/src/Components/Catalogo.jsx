@@ -3,7 +3,7 @@ import Paginas2 from './Paginas2'
 import '../Button.css'
 import axios from 'axios'
 import {useSelector, useDispatch} from 'react-redux'
-import {paraFiltrarUsados, paraFiltrarNuevos, paraFiltrarMayorP, paraFiltrarMenorP, categorySearch, obtenerProductos} from '../redux/searchDucks'
+import {paraFiltrarUsados, paraFiltrarNuevos, paraFiltrarMayorP, paraFiltrarMenorP, categorySearch, obtenerProductos, siguientesProductos} from '../redux/searchDucks'
 
 
 const Catalogo = () => {

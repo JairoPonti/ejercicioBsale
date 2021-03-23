@@ -6,8 +6,8 @@ import axios from 'axios'
 const dataInicial = {
     array: [],
     resFiltrados: [],
-    offset: 0,
-    offsetFil: 0,
+    max: 7,
+    min: 0,
     value: [],
     interruptor: false
 }
@@ -17,8 +17,8 @@ const OBTENER_PRODUCTOS    = 'OBTENER_PRODUCTOS'
 const PARA_FILTRAR_MENOR_PRECIO = 'PARA_FILTRAR_MENOR_PRECIO'
 const PARA_FILTRAR_MAYOR_PRECIO = 'PARA_FILTRAR_MAYOR_PRECIO'
 const CATEGORY_SEARCH = 'CATEGORY_SEARCH'
-// const SIGUIENTES_PRODUCTOS = 'SIGUIENTES_PRODUCTOS'
-// const ANTERIORES_PRODUCTOS = 'ANTERIORES_PRODUCTOS'
+const SIGUIENTES_PRODUCTOS = 'SIGUIENTES_PRODUCTOS'
+const ANTERIORES_PRODUCTOS = 'ANTERIORES_PRODUCTOS'
 // const SIGUIENTES_PRODUCTOS_FILTRADOS = 'SIGUIENTES_PRODUCTOS_FILTRADOS'
 // const ANTERIORES_PRODUCTOS_FILTRADOS = 'ANTERIORES_PRODUCTOS_FILTRADOS' 
 
@@ -27,14 +27,10 @@ export default function searchReducer(state= dataInicial, action){
     switch(action.type){
     case OBTENER_PRODUCTOS:
         return {...state, array: action.payload, value: action.value, interruptor: true}
-    // case SIGUIENTES_PRODUCTOS:
-    //     return {...state, array: action.payload.array, offset: action.payload.offset, value: action.payload.value}
-    //     case SIGUIENTES_PRODUCTOS_FILTRADOS:
-    //         return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset, value: action.payload.value}
-    // case ANTERIORES_PRODUCTOS:
-    //     return {...state, array: action.payload.array, offset: action.payload.offset}
-    // case ANTERIORES_PRODUCTOS_FILTRADOS:
-    //         return {...state, resFiltrados: action.payload.resFiltrados, offsetFil: action.payload.offset}
+    case SIGUIENTES_PRODUCTOS:
+        return {...state, max: action.payload.max, min: action.payload.min}
+    case ANTERIORES_PRODUCTOS:
+        return {...state, max: action.payload.max, min: action.payload.min}
     case CATEGORY_SEARCH:
         return {...state,  array: action.payload, interruptor: false}
     case PARA_FILTRAR_MENOR_PRECIO:
@@ -118,51 +114,41 @@ export const paraFiltrarMenorP = () => (dispatch, getState) => {
 
  //:::: SIGUIENTES Y ANTERIORES
 
-// export const siguientesProductos = ( valor) => async (dispatch, getState) => {
+export const siguientesProductos = () => async (dispatch, getState) => {
     
-    
-//     // console.log('getState', getState().productos.limit)
+    const max = getState().productos.max
+    const min = getState().productos.min
+    // console.log('getState', getState().productos.limit)
 //    const offset = getState().productos.offset
 //    const siguientes = offset + 30
 
-//  try {
-//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + valor + '&offset=' + siguientes + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-//            dispatch({
-//             type:SIGUIENTES_PRODUCTOS,
-//             payload: {
-//                 array:res.data.results,
-//                 offset: siguientes,
-//                 value: valor
-//             }
-//        })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+           dispatch({
+            type:SIGUIENTES_PRODUCTOS,
+            payload: {
+                max : max + 7,
+                min : min + 7
+            }
+       })
+  
+}
 
 
-// export const anterioresProductos = ( value) => async (dispatch, getState) => {
+export const anterioresProductos = () => async (dispatch, getState) => {
     
-    
-//     // console.log('getState', getState().productos.limit)
+    const max = getState().productos.max
+    const min = getState().productos.min
+    // console.log('getState', getState().productos.limit)
 //    const offset = getState().productos.offset
 //    const anteriores = offset - 30
 
-//  try {
-//       const res= await  axios.get('https://api.mercadolibre.com/sites/MLA/search?q=' + value + '&offset=' + anteriores + '&limit=30') // busqueda luego de q= + req.query.q + 
-
-//            dispatch({
-//             type:ANTERIORES_PRODUCTOS,
-//             payload: {
-//                 array:res.data.results,
-//                 offset: anteriores
-//             }
-//        })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+           dispatch({
+            type:ANTERIORES_PRODUCTOS,
+            payload: {
+                max : max - 7,
+                min : min - 7
+            } 
+       })
+}
 
 
  //:::: SIGUIENTES Y ANTERIORES DE PROD FILTRADOS
