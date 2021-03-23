@@ -2,7 +2,6 @@ const server = require("express").Router();
 const axios = require('axios');
 const { Product, Category, conn } = require('../../db');
 const { Sequelize:{Op}} = require('sequelize');
-// const { Op } = require("sequelize");
 const { Sequelize } = require('sequelize')
 
 
@@ -27,24 +26,9 @@ server.get('/', (req, res, next) => {
 });
 
 
-// Ruta a /search/lower/price
-// server.get('/', (req, res, next) => {
-// 	console.log(req.query)
-// 	var parametro = "'" + req.query.q + "'"
-//  conn.query('SELECT * FROM product WHERE name ='+ parametro).then((data) => {
-// 		console.log('estoy adentro y tengo' + data)
-// 		res.send(data)
-// 		}) 
-
-// });
-
-
-
-
-
 // Ruta a /search/category
 
-server.get('/category', (req, res, next) => { //Definir si será por query o body
+server.get('/category', (req, res, next) => { 
 
  var parametro = req.query.q 
  parametro = "'" + parametro + "'";	

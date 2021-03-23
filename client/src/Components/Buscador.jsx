@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types'
 
 import { obtenerProductos } from "../redux/searchDucks";
 
@@ -18,8 +19,8 @@ export class Buscador extends Component {
     event.preventDefault();
     this.props.obtenerProductos(this.state.title);
   }
-
   render() {
+
     const { title } = this.state;
     return (
       <div>
@@ -67,6 +68,10 @@ function mapDispatchToProps(dispatch) {
   return {
     obtenerProductos: (title) => dispatch(obtenerProductos(title)),
   };
+}
+
+Buscador.propTypes= {
+	title: PropTypes.string.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buscador);

@@ -1,9 +1,9 @@
-import { AiOutlineFacebook, AiFillGithub, AiFillMail, AiOutlinePhone } from "react-icons/ai";
+import { AiFillGithub, AiFillMail, AiOutlinePhone } from "react-icons/ai";
 
 
-export default function Footer(props) {
+export default function Footer() {
         return (
-<footer class="page-footer card-panel cyan darken-3">
+<footer class="page-footer card-panel cyan darken-3" style={{position:"absolut", marginTop: 200}}>
 <div class="container">
   <div class="row">
     <div class="col l6 s12">
