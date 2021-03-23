@@ -13,12 +13,9 @@ function ProductCard(props) {
 			<div className="card-content grey-text">
 				<p className="card-title truncate">{props.title}</p>
 			</div>
+			{/* <AddShoppingCartIcon style={{display:"flex", justifyContent: "end"}}/> */}
 			<br/>
 			<div>
-			<AddShoppingCartIcon
-                        
-                          
-                        />
 				<h6 style={{textAlign:"center"}}>${props.price} </h6>
 				<h6 style={{textAlign:"center", color:"red"}}>Discount: {props.discount} </h6>
 				</div>
