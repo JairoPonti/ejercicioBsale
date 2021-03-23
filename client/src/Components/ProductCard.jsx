@@ -1,4 +1,5 @@
 import React from 'react';
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 
 function ProductCard(props) {
@@ -14,8 +15,12 @@ function ProductCard(props) {
 			</div>
 			<br/>
 			<div>
-				<h6 style={{textAlign:"center"}}>${props.price} {props.id}</h6>
-				<h6 style={{textAlign:"center", color:"red"}}>stock: {props.availableQuantity} Condición: {props.condition === 'new' ? 'Nuevo' : 'Usado'}</h6>
+			<AddShoppingCartIcon
+                        
+                          
+                        />
+				<h6 style={{textAlign:"center"}}>${props.price} </h6>
+				<h6 style={{textAlign:"center", color:"red"}}>Discount: {props.discount} </h6>
 				</div>
 		</div>
 	)

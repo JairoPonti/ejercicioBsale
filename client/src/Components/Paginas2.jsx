@@ -2,44 +2,29 @@ import React, { Component, useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import {
+  siguientesProductos,
+  anterioresProductos,
+} from "../redux/searchDucks";
 
 
 
 
 const Paginas = () => {
 
-  // const [sig, setSig] = useState([]);
-  // const [ant, setAnt] = useState([]);
-  const [a, setA] = useState(7);
-  const [b, setB] = useState(14);
-  // const [c, setC] = useState(a);
-  // const [d, setD] = useState(b);
   const [interruptor, setInterruptor] = useState(true);
+  const [prodPaginacion, setProdpaginacion] = useState([])
+  console.log( prodPaginacion)
   const dispatch = useDispatch();
   
   var productos = useSelector((store) => store.productos.array);
+  var indexA =   useSelector((store) => store.productos.min);
+  var indexB=     useSelector((store) => store.productos.max);
     
-  // if(productos.length > 0){
-  //   var prod =  productos.slice(0,7)
-  // } else {
-  //   prod = []
-  // }
-
+  var prodFiltrados = productos.slice(0,7)
   
-
-  var prod =  productos.slice(0,7)
-  
-  const [prodPaginacion, setProdpaginacion] = useState([])
-
-  // if(prod.length !== 0 && prodPaginacion.length === 0){
-  //   setA(7)
-  //   setB(14)
-  // }
- 
-  console.log( prod)
-  console.log( prodPaginacion)
-
-  const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
+  console.log (prodFiltrados)
+  // const prodFiltrados = useSelector((store) => store.productos.resFiltrados);
   //  console.log(prodFiltrados);
   const value = useSelector((store) => store.productos.value);
   // console.log(value);
@@ -62,38 +47,55 @@ const Paginas = () => {
     </h3>
   );
 
-  if (prodFiltrados.length > 0 && interruptor === false) {
-    productos = false;
-    leyenda = null;
-  }
+  var leyendaSinProductos = (
+    <h3 style={{ textAlign: "center", marginTop: "140px" }}>
+      No hay más productos para mostrar
+    </h3>
+  );
 
+  // var tecla = false
+
+  // if (prodIniciales){
+  //   tecla = true  
+  // }
+
+  // if(tecla){
+  //   dispatch(siguientesProductos())
+  //   tecla = false
+  // }
+  
+  // useEffect(() => {
+  //   dispatch(siguientesProductos())
+  // }, [prodIniciales])
+
+  // switch (prodIniciales.length > 0) {
+
+  //   case true:
+
+  //     dispatch(siguientesProductos())
+
+  //   break;
+  // }
  
-
-
-  console.log("Soy a y b del scoope global " + a + b);
-  //  console.log ('Soy c y d del scoope global ' + c + d)
-
-  function siguientes(productos) {
-    setA(a + 7);
-    setB(b + 7);
-    prod = []
-    console.log("Soy a y b dentro de f de sig " + a + b);
-    setProdpaginacion (productos.slice(a, b));
-
-    return prodPaginacion;
+  function siguientesYanteriores(productos) {
+   
+    console.log('dentro de siguientes y ant' + indexA + indexB)
+    prodFiltrados = (productos.slice(indexA, indexB));
+     console.log('soy algo dentro de f' + prodFiltrados)
+    return prodFiltrados;
   }
 
-  function anteriores(productos) {
-    setA(a - 7);
-    setB(b - 7);
-    prod = []
-    console.log("Soy a y b dentro de f anteriores " + a + b);
-    setProdpaginacion (productos.slice(a, b));
-    return prodPaginacion;
-  }
+  console.log(siguientesYanteriores(productos))
+ 
+  // function anteriores(productos) {
+   
+  //   return prodPaginacion;
+  // }
 
   const handleSiguientes = () => {
-    siguientes(productos);
+    dispatch(siguientesProductos());
+    siguientesYanteriores(productos)
+    // console.log( prodIniciales)
     // setSig(prodPaginacion);
     setInterruptor(false);
     console.log("Ejecuté siguientes");
@@ -101,37 +103,20 @@ const Paginas = () => {
   };
 
   const handleAnteriores = () => {
-    anteriores(productos);
+    dispatch(anterioresProductos());
+    siguientesYanteriores(productos)
     // setAnt(prodPaginacion);
     console.log("Ejecuté Anteriores");
     // setInterruptor(false)
   };
 
-  // useEffect(() => {
-  //   console.log("Me rendericé");
-  // }, [ant, handleAnteriores]);
-
-  // console.log(sig);
-  // console.log(ant);
   console.log(interruptor);
 
   return (
     <div>
        <div className="row">
-        {prod && interruptor === true
-          ? prod.map((e) => (
-              <div className="col s13 m6 l4 " key={e.id}>
-                <ProductCard
-                  img={e.url_image}
-                  title={e.name}
-                  price={e.price}
-                  discount={e.discount}
-                  id={e.id}
-                />
-              </div>
-            ))
-            : prodPaginacion.length > 0 && interruptor === false
-            ? prodPaginacion.map((e) => (
+        { prodFiltrados.length > 0 
+            ? prodFiltrados.map((e) => (
                 <div className="col s13 m6 l4 " key={e.id}>
                   <ProductCard
                     img={e.url_image}
@@ -142,24 +127,26 @@ const Paginas = () => {
                   />
                 </div>
               ))
-            : null}
+            : null} 
          </div> 
 
       <div style={{ textAlign: "center", position: "sticky" }}>
 
-        { a !== 0 ?
-        ( <button
+        { indexA !== 0 ?
+        (   <button
           className="btn active cyan darken-3"
           onClick={handleAnteriores} // PROBANDO CATEGORY
         >
           anteriores
         </button> )
-        : null }
-        { prod.length !== 0 ?
-        (<button className="btn active cyan darken-3" onClick={handleSiguientes}>
+        : null } 
+      {prodFiltrados.length !== 0 ?
+        ( 
+        <button className="btn active cyan darken-3" onClick={handleSiguientes}>
           siguientes
-        </button>)
-        : leyenda}
+        </button>
+         )
+        : leyendaSinProductos} 
       </div>
     </div>
   );

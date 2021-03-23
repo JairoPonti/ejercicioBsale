@@ -10,6 +10,7 @@ export class Buscador extends Component {
       title: "",
     };
   }
+
   handleChange(event) {
     this.setState({ title: event.target.value });
   }
