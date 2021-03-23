@@ -41,35 +41,35 @@ const Catalogo = () => {
         >
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(paraFiltrarMenorP())}
           >
             <i className="material-icons">attach_money</i>Menor a Mayor
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(energetica))}
           >
             Bebida energética
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(pisco))}
           >
             Pisco
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(ron))}
           >
             Ron
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(paraFiltrarMayorP())}
           >
             <i className="material-icons ">attach_money</i>Mayor a Menor
@@ -84,28 +84,28 @@ const Catalogo = () => {
         >
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(snack))}
           >
             Snack
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(cerveza))}
           >
             Cerveza
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(vodka))}
           >
             Vodka
           </button>
           <button
             type="submit"
-            className="btn yellow button"
+            className="btn darkcyan button"
             onClick={() => dispatch(categorySearch(bebida))}
           >
             Bebida

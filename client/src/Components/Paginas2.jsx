@@ -3,7 +3,10 @@ import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { siguientesProductos, anterioresProductos } from "../redux/searchDucks";
 
+
 const Paginas = () => {
+
+
   const [interruptor, setInterruptor] = useState(true);
 
   const dispatch = useDispatch();
@@ -54,7 +57,7 @@ const Paginas = () => {
 
   return (
     <div>
-      <div className="row">
+      <div className="row" style={{maxWidth: 1200, position: "sticky"}}>
         {prodFiltrados.length > 0
           ? prodFiltrados.map((e) => (
               <div className="col s13 m6 l4 " key={e.id}>
@@ -72,9 +75,9 @@ const Paginas = () => {
           : leyendaTuBusqueda}
       </div>
 
-      <div style={{ textAlign: "center", position: "sticky" }}>
+      <div style={{ textAlign: "center",justifyContent: "center", alignItems: "flex-end", flexDirection: "center"}}>
         {indexA !== 0 ? (
-          <button
+          <button 
             className="btn active cyan darken-3"
             onClick={handleAnteriores}
           >
@@ -82,7 +85,7 @@ const Paginas = () => {
           </button>
         ) : null}
         {prodFiltrados.length !== 0 ? (
-          <button
+          <button 
             className="btn active cyan darken-3"
             onClick={handleSiguientes}
           >

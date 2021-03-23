@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-// const session = require('express-session')
 const bodyParser = require('body-parser');
 const server = express()
 const routes = require('./routes/index.js')
@@ -19,12 +18,6 @@ server.use((req, res, next) => {
     if (req.methods === 'OPTIONS') return res.send('ok');
     next();
 })
-
-// server.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false
-// }))
 
 server.use('/', routes)
 
