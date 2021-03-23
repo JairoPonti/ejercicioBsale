@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { connect, useDisptach } from "react-redux";
+import { connect } from "react-redux";
 
-import { obtenerProductos, siguientesProductos } from "../redux/searchDucks";
+import { obtenerProductos } from "../redux/searchDucks";
 
 export class Buscador extends Component {
   constructor(props) {
@@ -10,15 +10,13 @@ export class Buscador extends Component {
       title: "",
     };
   }
-  // const dispatch = useDispatch();
- 
+
   handleChange(event) {
     this.setState({ title: event.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
     this.props.obtenerProductos(this.state.title);
-    // this.props.siguientesProductos()
   }
 
   render() {
@@ -46,8 +44,7 @@ export class Buscador extends Component {
                       className="autocomplete center-align  white lighten-2 col l12 m12 s12"
                     />
                   </div>
-                  <button type="submit" className="btn active cyan darken-3"
-                  >
+                  <button type="submit" className="btn active cyan darken-3">
                     BUSCAR
                   </button>
                 </form>
@@ -69,7 +66,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     obtenerProductos: (title) => dispatch(obtenerProductos(title)),
-    // siguientesProductos: () => dispatch(siguientesProductos())
   };
 }
 

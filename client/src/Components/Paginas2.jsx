@@ -47,6 +47,12 @@ const Paginas = () => {
     </h3>
   );
 
+  var leyendaSinProductos = (
+    <h3 style={{ textAlign: "center", marginTop: "140px" }}>
+      No hay más productos para mostrar
+    </h3>
+  );
+
   // var tecla = false
 
   // if (prodIniciales){
@@ -134,13 +140,13 @@ const Paginas = () => {
           anteriores
         </button> )
         : null } 
-        {/* { prod.length !== 0 ?
-        ( */}
+      {prodFiltrados.length !== 0 ?
+        ( 
         <button className="btn active cyan darken-3" onClick={handleSiguientes}>
           siguientes
         </button>
-        {/* )
-        : leyenda} */}
+         )
+        : leyendaSinProductos} 
       </div>
     </div>
   );
