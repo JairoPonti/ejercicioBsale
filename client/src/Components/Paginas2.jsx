@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { siguientesProductos, anterioresProductos } from "../redux/searchDucks";
@@ -37,6 +37,19 @@ const Paginas = () => {
     return prodFiltrados;
   }
 
+//   const handleReset = () => {
+//     dispatch(resetIndices())
+//   }
+    
+//  useEffect(() => {
+//   if (prodFiltrados.length === 0){
+//     handleReset ()
+//     console.log('HIce el dispatch de reset ')
+// }
+//  }, [prodFiltrados])   
+  
+
+ 
   console.log(siguientesYanteriores(productos));
    console.log(productos)
 

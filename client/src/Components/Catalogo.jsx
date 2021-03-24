@@ -6,6 +6,7 @@ import {
   paraFiltrarMayorP,
   paraFiltrarMenorP,
   categorySearch,
+  resetIndices
 } from "../redux/searchDucks";
 
 const Catalogo = () => {
@@ -24,6 +25,50 @@ const Catalogo = () => {
   var cerveza = "6";
   var vodka = "7";
 
+  const handleEnergetica = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(energetica))
+  };
+
+  const handlePisco = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(pisco))
+  };
+
+  const handleRon = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(ron))
+  };
+
+  const handleBebida = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(bebida))
+  };
+
+  const handleSnack = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(snack))
+  };
+
+  const handleCerveza = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(cerveza))
+  };
+
+  const handleVodka = () => {
+    dispatch(resetIndices());
+    dispatch(categorySearch(vodka))
+  };
+
+  const handleMenorPrecio = () => {
+    dispatch(resetIndices());
+    dispatch(paraFiltrarMenorP())
+  };
+
+  const handleMayorPrecio = () => {
+    dispatch(resetIndices());
+    dispatch(paraFiltrarMayorP())
+  };
   return (
     <div>
       <div className="row">
@@ -42,35 +87,35 @@ const Catalogo = () => {
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(paraFiltrarMenorP())}
+            onClick={handleMenorPrecio}
           >
             <i className="material-icons">attach_money</i>Menor a Mayor
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(energetica))}
+            onClick={handleEnergetica}
           >
             Bebida energética
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(pisco))}
+            onClick={handlePisco}
           >
             Pisco
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(ron))}
+            onClick={handleRon}
           >
             Ron
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(paraFiltrarMayorP())}
+            onClick={handleMayorPrecio}
           >
             <i className="material-icons ">attach_money</i>Mayor a Menor
           </button>
@@ -85,28 +130,28 @@ const Catalogo = () => {
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(snack))}
+            onClick={handleSnack}
           >
             Snack
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(cerveza))}
+            onClick={handleCerveza}
           >
             Cerveza
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(vodka))}
+            onClick={handleVodka}
           >
             Vodka
           </button>
           <button
             type="submit"
             className="btn darkcyan button"
-            onClick={() => dispatch(categorySearch(bebida))}
+            onClick={handleBebida}
           >
             Bebida
           </button>

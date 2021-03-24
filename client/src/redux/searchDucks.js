@@ -17,6 +17,7 @@ const PARA_FILTRAR_MAYOR_PRECIO = "PARA_FILTRAR_MAYOR_PRECIO";
 const CATEGORY_SEARCH = "CATEGORY_SEARCH";
 const SIGUIENTES_PRODUCTOS = "SIGUIENTES_PRODUCTOS";
 const ANTERIORES_PRODUCTOS = "ANTERIORES_PRODUCTOS";
+const RESET_INDICES = 'RESET_INDICES'
 
 //Reducer
 export default function searchReducer(state = dataInicial, action) {
@@ -58,6 +59,12 @@ export default function searchReducer(state = dataInicial, action) {
         array: action.payload,
         interruptor: false,
       };
+      case  RESET_INDICES:
+        return {
+          ...state,
+          max: action.payload.max,
+          min: action.payload.min
+        };
     default:
       return state;
   }
@@ -142,6 +149,21 @@ export const anterioresProductos = () => async (dispatch, getState) => {
     payload: {
       max: max - 9,
       min: min - 9,
+    },
+  });
+};
+
+//::: RESET INDICES
+
+export const resetIndices = () => async (dispatch) => {
+  // const max = getState().productos.max;
+  // const min = getState().productos.min;
+
+  dispatch({
+    type: RESET_INDICES,
+    payload: {
+      max: 9,
+      min: 0
     },
   });
 };
