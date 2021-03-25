@@ -7,7 +7,8 @@ import {
   paraFiltrarMenorP,
   categorySearch,
   resetIndices,
-  resetContador
+  resetContador,
+  interruptorLeyenda 
 } from "../redux/searchDucks";
 
 const Catalogo = () => {
@@ -29,54 +30,66 @@ const Catalogo = () => {
   const handleEnergetica = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(energetica))   
   };
 
   const handlePisco = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(pisco))
   };
 
   const handleRon = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(ron))
   };
 
   const handleBebida = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(bebida))
   };
 
   const handleSnack = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(snack))
   };
 
   const handleCerveza = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(cerveza))
   };
 
   const handleVodka = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(categorySearch(vodka))
   };
 
   const handleMenorPrecio = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(paraFiltrarMenorP())
   };
 
   const handleMayorPrecio = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
+    dispatch(interruptorLeyenda());
     dispatch(paraFiltrarMayorP())
   };
+
   return (
     <div>
       <div className="row">
