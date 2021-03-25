@@ -8,6 +8,8 @@ const dataInicial = {
   min: 0,
   value: [],
   interruptor: false,
+  siguientes: [],
+  contador: 0
 };
 
 //Types
@@ -17,7 +19,10 @@ const PARA_FILTRAR_MAYOR_PRECIO = "PARA_FILTRAR_MAYOR_PRECIO";
 const CATEGORY_SEARCH = "CATEGORY_SEARCH";
 const SIGUIENTES_PRODUCTOS = "SIGUIENTES_PRODUCTOS";
 const ANTERIORES_PRODUCTOS = "ANTERIORES_PRODUCTOS";
-const RESET_INDICES = 'RESET_INDICES'
+const RESET_INDICES = 'RESET_INDICES';
+const INCREMENTO_CONTADOR = 'INCREMENTO_CONTADOR';
+const DECREMENTO_CONTADOR = ' DECREMENTO_CONTADOR'
+const RESET_CONTADOR = 'RESET_CONTADOR'
 
 //Reducer
 export default function searchReducer(state = dataInicial, action) {
@@ -65,6 +70,16 @@ export default function searchReducer(state = dataInicial, action) {
           max: action.payload.max,
           min: action.payload.min
         };
+     case  INCREMENTO_CONTADOR:
+       return {
+         ...state,
+         contador: action.payload
+       }
+       case  DECREMENTO_CONTADOR:
+        return {
+          ...state,
+          contador: action.payload
+        }
     default:
       return state;
   }
@@ -86,7 +101,14 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
 
 //:::OBTENER PRODUCTOS POR CATEGORIA
 
-export const categorySearch = (val) => async (dispatch) => {
+export const categorySearch = (val) => async (dispatch, getState) => {
+   const max = getState().productos.max;
+  const min = getState().productos.min;
+  const array = getState().productos.array;
+  console.log(min)
+  console.log(max)
+  console.log(array)
+  
   try {
     const res = await axios.get(
       `http://localhost:4000/search/category?q=${val}`
@@ -95,6 +117,11 @@ export const categorySearch = (val) => async (dispatch) => {
     dispatch({
       type: CATEGORY_SEARCH,
       payload: res.data[0],
+    });
+    console.log(res.data[0].slice(9, 18));
+    dispatch({
+      type: ANALIZO_SIGUIENTES,
+      payload: res.data[0].slice(min + 9, max + 9)
     });
   } catch (error) {
     console.log(error);
@@ -167,3 +194,33 @@ export const resetIndices = () => async (dispatch) => {
     },
   });
 };
+
+//::::CONTADOR PARA MOSTRAR U OCULTAR SIGUIENTES
+
+export const incrementoContador = () => (dispatch, getState) => {
+  
+  const contador = getState().productos.contador;
+
+    dispatch({
+    type: INCREMENTO_CONTADOR,
+    payload: contador + 1
+  });
+}
+
+export const decrementoContador = () => (dispatch, getState) => {
+  
+  const contador = getState().productos.contador;
+
+    dispatch({
+    type: DECREMENTO_CONTADOR,
+    payload: contador - 1
+  });
+}
+
+export const resetContador = () => (dispatch, getState) => {
+  
+    dispatch({
+    type: RESET_CONTADOR,
+    payload: 0
+  });
+}

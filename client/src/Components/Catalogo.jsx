@@ -6,12 +6,13 @@ import {
   paraFiltrarMayorP,
   paraFiltrarMenorP,
   categorySearch,
-  resetIndices
+  resetIndices,
+  resetContador
 } from "../redux/searchDucks";
 
 const Catalogo = () => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   var arr = useSelector((store) => store.productos.array[0]);
   console.log(arr);
 
@@ -27,36 +28,43 @@ const Catalogo = () => {
 
   const handleEnergetica = () => {
     dispatch(resetIndices());
-    dispatch(categorySearch(energetica))
+    dispatch(resetContador());
+    dispatch(categorySearch(energetica))   
   };
 
   const handlePisco = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(pisco))
   };
 
   const handleRon = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(ron))
   };
 
   const handleBebida = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(bebida))
   };
 
   const handleSnack = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(snack))
   };
 
   const handleCerveza = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(cerveza))
   };
 
   const handleVodka = () => {
     dispatch(resetIndices());
+    dispatch(resetContador());
     dispatch(categorySearch(vodka))
   };
 

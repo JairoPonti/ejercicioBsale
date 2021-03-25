@@ -3,7 +3,7 @@ import { AiFillGithub, AiFillMail, AiOutlinePhone } from "react-icons/ai";
 
 export default function Footer() {
         return (
-<footer class="page-footer card-panel cyan darken-3" style={{position:"absolut", marginTop: 200}}>
+<footer class="page-footer card-panel cyan darken-3" style={{position:"absolut", marginTop: 100}}>
 <div class="container">
   <div class="row">
     <div class="col l6 s12">
