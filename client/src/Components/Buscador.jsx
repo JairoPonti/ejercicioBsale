@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types'
-import { obtenerProductos, resetIndices, resetContador } from "../redux/searchDucks";
+import { obtenerProductos, resetIndices, resetContador, interruptorLeyenda } from "../redux/searchDucks";
 
 export class Buscador extends Component {
   constructor(props) {
@@ -18,7 +18,8 @@ export class Buscador extends Component {
     event.preventDefault();
     this.props.obtenerProductos(this.state.title);
     this.props.resetIndices();
-    this.props.resetContador()
+    this.props.resetContador();
+    this.props.interruptorLeyenda()
   }
   render() {
 
@@ -70,6 +71,7 @@ function mapDispatchToProps(dispatch) {
     obtenerProductos: (title) => dispatch(obtenerProductos(title)),
     resetIndices: () => dispatch(resetIndices()),
     resetContador: () => dispatch(resetContador()),
+    interruptorLeyenda: () => dispatch(interruptorLeyenda())
   };
 }
 

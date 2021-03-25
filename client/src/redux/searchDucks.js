@@ -7,7 +7,7 @@ const dataInicial = {
   max: 9,
   min: 0,
   value: [],
-  interruptor: false,
+  interruptor: true,
   siguientes: [],
   contador: 0
 };
@@ -23,6 +23,7 @@ const RESET_INDICES = 'RESET_INDICES';
 const INCREMENTO_CONTADOR = 'INCREMENTO_CONTADOR';
 const DECREMENTO_CONTADOR = ' DECREMENTO_CONTADOR'
 const RESET_CONTADOR = 'RESET_CONTADOR'
+const INTERRUPTOR_LEYENDA = 'INTERRUPTOR_LEYENDA'
 
 //Reducer
 export default function searchReducer(state = dataInicial, action) {
@@ -32,7 +33,7 @@ export default function searchReducer(state = dataInicial, action) {
         ...state,
         array: action.payload,
         value: action.value,
-        interruptor: true,
+        // interruptor: true,
       };
     case SIGUIENTES_PRODUCTOS:
       return {
@@ -50,19 +51,19 @@ export default function searchReducer(state = dataInicial, action) {
       return {
         ...state,
         array: action.payload,
-        interruptor: false,
+        // interruptor: false,
       };
     case PARA_FILTRAR_MENOR_PRECIO:
       return {
         ...state,
         array: action.payload,
-        interruptor: false,
+        // interruptor: false,
       };
     case PARA_FILTRAR_MAYOR_PRECIO:
       return {
         ...state,
         array: action.payload,
-        interruptor: false,
+        // interruptor: false,
       };
       case  RESET_INDICES:
         return {
@@ -80,6 +81,16 @@ export default function searchReducer(state = dataInicial, action) {
           ...state,
           contador: action.payload
         }
+        case  RESET_CONTADOR:
+          return {
+            ...state,
+            contador: action.payload
+          }
+          case INTERRUPTOR_LEYENDA:
+            return {
+              ...state,
+              interruptor: action.payload
+            }
     default:
       return state;
   }
@@ -117,11 +128,6 @@ export const categorySearch = (val) => async (dispatch, getState) => {
     dispatch({
       type: CATEGORY_SEARCH,
       payload: res.data[0],
-    });
-    console.log(res.data[0].slice(9, 18));
-    dispatch({
-      type: ANALIZO_SIGUIENTES,
-      payload: res.data[0].slice(min + 9, max + 9)
     });
   } catch (error) {
     console.log(error);
@@ -223,4 +229,12 @@ export const resetContador = () => (dispatch, getState) => {
     type: RESET_CONTADOR,
     payload: 0
   });
+}
+
+export const interruptorLeyenda = () => (dispatch) => {
+  
+  dispatch({
+  type: INTERRUPTOR_LEYENDA,
+  payload: false
+});
 }

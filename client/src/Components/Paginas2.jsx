@@ -7,7 +7,7 @@ import { siguientesProductos, anterioresProductos, incrementoContador, decrement
 const Paginas = () => {
 
 
-  const [interruptor, setInterruptor] = useState(true);
+  
   const [arrSig, setArrsig] = useState(0)
 
   const dispatch = useDispatch();
@@ -16,10 +16,11 @@ const Paginas = () => {
   var indexA = useSelector((store) => store.productos.min);
   var indexB = useSelector((store) => store.productos.max);
   var contador = useSelector((store) => store.productos.contador);
+  var interruptor = useSelector((store) => store.productos.interruptor);
   // var lengthSliceSiguientes = useSelector((store) => store.productos.siguientes);
   var prodFiltrados = productos.slice(0, 7);
   var resto = productos.length % 9
-  var division = Math.round( productos.length / 9)
+  var division = Math.trunc( productos.length / 9)
 
   console.log (arrSig)
   console.log (resto)
@@ -49,7 +50,7 @@ useEffect(() => {
 
   var leyendaSinProductos = (
     <h3 style={{ textAlign: "center", marginTop: "140px" }}>
-      No hay más productos para mostrar
+      No hay productos que coincidan con tu búsqueda
     </h3>
   );
 
@@ -65,7 +66,6 @@ useEffect(() => {
     dispatch(incrementoContador())
     dispatch(siguientesProductos());
     siguientesYanteriores(productos);
-    setInterruptor(false);
     console.log("Ejecuté siguientes");
   };
   console.log (arrSig)
