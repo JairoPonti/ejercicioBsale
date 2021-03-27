@@ -17,15 +17,13 @@ const Paginas = () => {
   var indexB = useSelector((store) => store.productos.max);
   var contador = useSelector((store) => store.productos.contador);
   var interruptor = useSelector((store) => store.productos.interruptor);
-  // var lengthSliceSiguientes = useSelector((store) => store.productos.siguientes);
+
   var prodFiltrados = productos.slice(0, 7);
   var resto = productos.length % 9
   var division = Math.trunc( productos.length / 9)
 
-  console.log (arrSig)
-  console.log (resto)
 
-   function prueba (){
+   function showSiguientes (){
      if (resto === 0){
     var cantidadPaginas = resto
     setArrsig (cantidadPaginas)
@@ -37,8 +35,7 @@ const Paginas = () => {
 
 
 useEffect(() => {
-  prueba()
-  console.log('ejecute prueba')
+  showSiguientes()
 }, [productos])
 
 
