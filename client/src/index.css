@@ -8,8 +8,8 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,16 +20,14 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-
-
-.thiscard{
+.thiscard {
   height: 350px;
 }
-.card{
+.card {
   height: 300px;
 }
 
@@ -47,48 +45,48 @@ code {
   margin: 0 auto;
 }
 
-.card-content{
+.card-content {
   height: 130px;
   width: 100%;
   position: absolute;
   bottom: 0;
 }
 
-nav{
+nav {
   padding-top: 25px;
   height: 140px;
-  background:#012225;
+  background: #012225;
   box-shadow: none;
   box-sizing: border-box;
 }
 
-.icon{
+.icon {
   margin-right: 5px;
 }
 
-.redes a, .contacto a{
+.redes a,
+.contacto a {
   /* margin-right: 20px; */
   margin-top: 15px;
 }
 
-#buscador{
+#buscador {
   border-radius: 10px;
   margin: 12px 0 0 0;
 }
 
-.btn{
+.btn {
   border-radius: 10px;
   /* margin: 5px; */
 }
 
-.brand-logo{
+.brand-logo {
   width: 150px;
   height: auto;
 }
 
-.fondo{
-  background:  url("./assets/shoppingB.png");
-    width: auto;
-    height: auto;
-
-  }
+.fondo {
+  background: url("./assets/shoppingB.png");
+  width: auto;
+  height: auto;
+}

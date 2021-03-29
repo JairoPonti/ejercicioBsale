@@ -3,13 +3,10 @@ import axios from "axios";
 //Constantes
 const dataInicial = {
   array: [],
-  resFiltrados: [],
   max: 6,
   min: 0,
-  value: [],
   interruptor: true,
-  siguientes: [],
-  contador: 0
+  contador: 0,
 };
 
 //Types
@@ -19,11 +16,11 @@ const PARA_FILTRAR_MAYOR_PRECIO = "PARA_FILTRAR_MAYOR_PRECIO";
 const CATEGORY_SEARCH = "CATEGORY_SEARCH";
 const SIGUIENTES_PRODUCTOS = "SIGUIENTES_PRODUCTOS";
 const ANTERIORES_PRODUCTOS = "ANTERIORES_PRODUCTOS";
-const RESET_INDICES = 'RESET_INDICES';
-const INCREMENTO_CONTADOR = 'INCREMENTO_CONTADOR';
-const DECREMENTO_CONTADOR = ' DECREMENTO_CONTADOR'
-const RESET_CONTADOR = 'RESET_CONTADOR'
-const INTERRUPTOR_LEYENDA = 'INTERRUPTOR_LEYENDA'
+const RESET_INDICES = "RESET_INDICES";
+const INCREMENTO_CONTADOR = "INCREMENTO_CONTADOR";
+const DECREMENTO_CONTADOR = " DECREMENTO_CONTADOR";
+const RESET_CONTADOR = "RESET_CONTADOR";
+const INTERRUPTOR_LEYENDA = "INTERRUPTOR_LEYENDA";
 
 //Reducer
 export default function searchReducer(state = dataInicial, action) {
@@ -32,8 +29,6 @@ export default function searchReducer(state = dataInicial, action) {
       return {
         ...state,
         array: action.payload,
-        value: action.value,
-        // interruptor: true,
       };
     case SIGUIENTES_PRODUCTOS:
       return {
@@ -51,46 +46,43 @@ export default function searchReducer(state = dataInicial, action) {
       return {
         ...state,
         array: action.payload,
-        // interruptor: false,
       };
     case PARA_FILTRAR_MENOR_PRECIO:
       return {
         ...state,
         array: action.payload,
-        // interruptor: false,
       };
     case PARA_FILTRAR_MAYOR_PRECIO:
       return {
         ...state,
         array: action.payload,
-        // interruptor: false,
       };
-      case  RESET_INDICES:
-        return {
-          ...state,
-          max: action.payload.max,
-          min: action.payload.min
-        };
-     case  INCREMENTO_CONTADOR:
-       return {
-         ...state,
-         contador: action.payload
-       }
-       case  DECREMENTO_CONTADOR:
-        return {
-          ...state,
-          contador: action.payload
-        }
-        case  RESET_CONTADOR:
-          return {
-            ...state,
-            contador: action.payload
-          }
-          case INTERRUPTOR_LEYENDA:
-            return {
-              ...state,
-              interruptor: action.payload
-            }
+    case RESET_INDICES:
+      return {
+        ...state,
+        max: action.payload.max,
+        min: action.payload.min,
+      };
+    case INCREMENTO_CONTADOR:
+      return {
+        ...state,
+        contador: action.payload,
+      };
+    case DECREMENTO_CONTADOR:
+      return {
+        ...state,
+        contador: action.payload,
+      };
+    case RESET_CONTADOR:
+      return {
+        ...state,
+        contador: action.payload,
+      };
+    case INTERRUPTOR_LEYENDA:
+      return {
+        ...state,
+        interruptor: action.payload,
+      };
     default:
       return state;
   }
@@ -103,7 +95,6 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
     dispatch({
       type: OBTENER_PRODUCTOS,
       payload: res.data[0],
-      value: valor,
     });
   } catch (error) {
     console.log(error);
@@ -113,17 +104,15 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
 //:::OBTENER PRODUCTOS POR CATEGORIA
 
 export const categorySearch = (val) => async (dispatch, getState) => {
-   const max = getState().productos.max;
+  const max = getState().productos.max;
   const min = getState().productos.min;
   const array = getState().productos.array;
-  console.log(min)
-  console.log(max)
-  console.log(array)
-  
+  console.log(min);
+  console.log(max);
+  console.log(array);
+
   try {
-    const res = await axios.get(
-      `/search/category?q=${val}`
-    );
+    const res = await axios.get(`/search/category?q=${val}`);
     console.log(res.data[0]);
     dispatch({
       type: CATEGORY_SEARCH,
@@ -189,14 +178,13 @@ export const anterioresProductos = () => async (dispatch, getState) => {
 //::: RESET INDICES
 
 export const resetIndices = () => async (dispatch) => {
-  // const max = getState().productos.max;
-  // const min = getState().productos.min;
+  
 
   dispatch({
     type: RESET_INDICES,
     payload: {
       max: 6,
-      min: 0
+      min: 0,
     },
   });
 };
@@ -204,37 +192,33 @@ export const resetIndices = () => async (dispatch) => {
 //::::CONTADOR PARA MOSTRAR U OCULTAR SIGUIENTES
 
 export const incrementoContador = () => (dispatch, getState) => {
-  
   const contador = getState().productos.contador;
 
-    dispatch({
+  dispatch({
     type: INCREMENTO_CONTADOR,
-    payload: contador + 1
+    payload: contador + 1,
   });
-}
+};
 
 export const decrementoContador = () => (dispatch, getState) => {
-  
   const contador = getState().productos.contador;
 
-    dispatch({
+  dispatch({
     type: DECREMENTO_CONTADOR,
-    payload: contador - 1
+    payload: contador - 1,
   });
-}
+};
 
 export const resetContador = () => (dispatch, getState) => {
-  
-    dispatch({
+  dispatch({
     type: RESET_CONTADOR,
-    payload: 0
+    payload: 0,
   });
-}
+};
 
 export const interruptorLeyenda = () => (dispatch) => {
-  
   dispatch({
-  type: INTERRUPTOR_LEYENDA,
-  payload: false
-});
-}
+    type: INTERRUPTOR_LEYENDA,
+    payload: false,
+  });
+};
