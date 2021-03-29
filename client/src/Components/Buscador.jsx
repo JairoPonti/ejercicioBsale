@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types'
-import { obtenerProductos, resetIndices, resetContador, interruptorLeyenda } from "../redux/searchDucks";
+import PropTypes from "prop-types";
+import {
+  obtenerProductos,
+  resetIndices,
+  resetContador,
+  interruptorLeyenda,
+} from "../redux/searchDucks";
 
 export class Buscador extends Component {
   constructor(props) {
@@ -19,10 +24,9 @@ export class Buscador extends Component {
     this.props.obtenerProductos(this.state.title);
     this.props.resetIndices();
     this.props.resetContador();
-    this.props.interruptorLeyenda()
+    this.props.interruptorLeyenda();
   }
   render() {
-
     const { title } = this.state;
     return (
       <div>
@@ -71,12 +75,12 @@ function mapDispatchToProps(dispatch) {
     obtenerProductos: (title) => dispatch(obtenerProductos(title)),
     resetIndices: () => dispatch(resetIndices()),
     resetContador: () => dispatch(resetContador()),
-    interruptorLeyenda: () => dispatch(interruptorLeyenda())
+    interruptorLeyenda: () => dispatch(interruptorLeyenda()),
   };
 }
 
-Buscador.propTypes= {
-	title: PropTypes.string.isRequired,
-}
+Buscador.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buscador);

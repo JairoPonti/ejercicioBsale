@@ -8,11 +8,10 @@ import {
   categorySearch,
   resetIndices,
   resetContador,
-  interruptorLeyenda 
+  interruptorLeyenda,
 } from "../redux/searchDucks";
 
 const Catalogo = () => {
-
   const dispatch = useDispatch();
   var arr = useSelector((store) => store.productos.array[0]);
   console.log(arr);
@@ -31,69 +30,68 @@ const Catalogo = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(energetica))   
+    dispatch(categorySearch(energetica));
   };
 
   const handlePisco = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(pisco))
+    dispatch(categorySearch(pisco));
   };
 
   const handleRon = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(ron))
+    dispatch(categorySearch(ron));
   };
 
   const handleBebida = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(bebida))
+    dispatch(categorySearch(bebida));
   };
 
   const handleSnack = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(snack))
+    dispatch(categorySearch(snack));
   };
 
   const handleCerveza = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(cerveza))
+    dispatch(categorySearch(cerveza));
   };
 
   const handleVodka = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(categorySearch(vodka))
+    dispatch(categorySearch(vodka));
   };
 
   const handleMenorPrecio = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(paraFiltrarMenorP())
+    dispatch(paraFiltrarMenorP());
   };
 
   const handleMayorPrecio = () => {
     dispatch(resetIndices());
     dispatch(resetContador());
     dispatch(interruptorLeyenda());
-    dispatch(paraFiltrarMayorP())
+    dispatch(paraFiltrarMayorP());
   };
 
   return (
-    <div >
-      <div className="row" >
-       
+    <div>
+      <div className="row">
         <br />
         <div
           style={{
@@ -108,7 +106,7 @@ const Catalogo = () => {
             className="btn darkcyan button"
             onClick={handleMenorPrecio}
           >
-           Menor <i className="material-icons">attach_money</i>
+            Menor <i className="material-icons">attach_money</i>
           </button>
           <button
             type="submit"
