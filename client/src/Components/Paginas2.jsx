@@ -81,7 +81,7 @@ const Paginas = () => {
     window.scrollTo(0,0)
   };
 
-  var corte = 10;
+  var corte = 20;
   function myFunction() {
     setonOff("on");
     console.log(onOff);
