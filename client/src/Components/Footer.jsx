@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       class="page-footer card-panel cyan darken-3"
-      style={{ position: "absolut", marginTop: 100 }}
+      style={{ position: "sticky", marginTop: 80 }}
     >
       <div class="container">
         <div class="row">
