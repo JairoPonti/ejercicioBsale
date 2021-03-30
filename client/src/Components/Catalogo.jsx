@@ -101,7 +101,7 @@ const Catalogo = () => {
             padding: 5,
           }}
         >
-          <div  style={{ paddingRight: 15}}>
+          <div  style={{ paddingRight: 5}}>
           <button
             type="submit"
             className="btn darkcyan button"
@@ -110,7 +110,7 @@ const Catalogo = () => {
             Menor <i className="material-icons">attach_money</i>
           </button>
           </div>
-          <div style={{ paddingRight: 15}}>
+        
           <button
             type="submit"
             className="btn darkcyan button"
@@ -118,8 +118,7 @@ const Catalogo = () => {
           >
             Bebida energética
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+        
           <button
             type="submit"
             className="btn darkcyan button"
@@ -127,8 +126,8 @@ const Catalogo = () => {
           >
             Pisco
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+        
+      
           <button
             type="submit"
             className="btn darkcyan button"
@@ -136,8 +135,8 @@ const Catalogo = () => {
           >
             Ron
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+         
+          <div style={{ paddingRight: 5}}>
           <button
             type="submit"
             className="btn darkcyan button"
