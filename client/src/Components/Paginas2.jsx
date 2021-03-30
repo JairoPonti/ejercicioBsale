@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { useDispatch, useSelector } from "react-redux";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   siguientesProductos,
   anterioresProductos,
@@ -10,6 +11,7 @@ import {
 
 const Paginas = () => {
   const [arrSig, setArrsig] = useState(0);
+  const [onOff, setonOff] = useState("off");
 
   const dispatch = useDispatch();
 
@@ -34,6 +36,7 @@ const Paginas = () => {
 
   useEffect(() => {
     showSiguientes();
+    setonOff("off");
     //eslint-disable-next-line
   }, [productos]);
 
@@ -68,32 +71,60 @@ const Paginas = () => {
     dispatch(incrementoContador());
     dispatch(siguientesProductos());
     siguientesYanteriores(productos);
+    window.scrollTo(0,0)
   };
 
   const handleAnteriores = () => {
     dispatch(decrementoContador());
     dispatch(anterioresProductos());
     siguientesYanteriores(productos);
+    window.scrollTo(0,0)
   };
 
+  var corte = 3;
+  function myFunction() {
+    setonOff("on");
+    console.log(onOff);
+  }
+
+  while (productos.length === 0 && (interruptor === false) & (corte !== 0)) {
+    setTimeout(myFunction, 3000);
+    corte = corte - 1;
+  }
+
+  console.log(onOff);
   return (
     <div>
       <div className="row" style={{ padding: 20, paddingTop: 50 }}>
-        {prodFiltrados.length > 0
-          ? prodFiltrados.map((e) => (
-              <div className="col s13 m6 l4 " key={e.id}>
-                <ProductCard
-                  img={e.url_image}
-                  title={e.name}
-                  price={e.price}
-                  discount={e.discount}
-                  id={e.id}
-                />
-              </div>
-            ))
-          : prodFiltrados.length === 0 && interruptor === false
-          ? leyendaSinProductos
-          : leyendaTuBusqueda}
+        {prodFiltrados.length > 0 ? (
+          prodFiltrados.map((e) => (
+            <div className="col s13 m6 l4 " key={e.id}>
+              <ProductCard
+                img= {e.url_image} 
+                title={e.name}
+                price={e.price}
+                discount={e.discount}
+                id={e.id}
+              />
+            </div>
+          ))
+        ) : (onOff === "off") & (prodFiltrados.length === 0) &&
+          interruptor === false ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 150,
+            }}
+          >
+            <CircularProgress />
+          </div>
+        ) : onOff === "on" ? (
+          leyendaSinProductos
+        ) : (
+          leyendaTuBusqueda
+        )}
       </div>
 
       <div
@@ -116,6 +147,7 @@ const Paginas = () => {
             anteriores
           </button>
         ) : null}
+        <hr/>
         {prodFiltrados.length !== 0 && contador !== arrSig - 1 ? (
           <button
             className="btn active cyan darken-3"
