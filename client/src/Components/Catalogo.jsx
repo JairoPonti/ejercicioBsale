@@ -90,7 +90,7 @@ const Catalogo = () => {
   };
 
   return (
-    <div >
+    <div>
       <div className="row">
         <br />
         <div
@@ -101,7 +101,6 @@ const Catalogo = () => {
             padding: 5,
           }}
         >
-          <div  style={{ paddingRight: 5}}>
           <button
             type="submit"
             className="btn darkcyan button"
@@ -109,8 +108,7 @@ const Catalogo = () => {
           >
             Menor <i className="material-icons">attach_money</i>
           </button>
-          </div>
-        
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -118,7 +116,7 @@ const Catalogo = () => {
           >
             Bebida energética
           </button>
-        
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -126,8 +124,7 @@ const Catalogo = () => {
           >
             Pisco
           </button>
-        
-      
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -135,8 +132,7 @@ const Catalogo = () => {
           >
             Ron
           </button>
-         
-          <div style={{ paddingRight: 5}}>
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -144,7 +140,6 @@ const Catalogo = () => {
           >
             Mayor <i className="material-icons ">attach_money</i>
           </button>
-          </div>
         </div>
         <div
           style={{
@@ -153,7 +148,6 @@ const Catalogo = () => {
             alignItems: "center",
           }}
         >
-          <div style={{ paddingRight: 15}}>
           <button
             type="submit"
             className="btn darkcyan button"
@@ -161,8 +155,7 @@ const Catalogo = () => {
           >
             Snack
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -170,8 +163,7 @@ const Catalogo = () => {
           >
             Cerveza
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -179,8 +171,7 @@ const Catalogo = () => {
           >
             Vodka
           </button>
-          </div>
-          <div style={{ paddingRight: 15}}>
+
           <button
             type="submit"
             className="btn darkcyan button"
@@ -188,7 +179,6 @@ const Catalogo = () => {
           >
             Bebida
           </button>
-          </div>
         </div>
       </div>
       <div className="row">
