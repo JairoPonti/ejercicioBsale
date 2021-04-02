@@ -108,7 +108,7 @@ const Paginas = () => {
               />
             </div>
           ))
-        ) : (onOff === "off") & (prodFiltrados.length === 0) &&
+        ) : onOff === "off" && prodFiltrados.length === 0 &&
           interruptor === false ? (
           <div
             style={{
