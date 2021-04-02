@@ -120,7 +120,7 @@ const Paginas = () => {
           >
             <CircularProgress />
           </div>
-        ) : onOff === "on" ? (
+        ) : onOff === "on"  && prodFiltrados.length === 0 ? (
           leyendaSinProductos
         ) : (
           leyendaTuBusqueda
