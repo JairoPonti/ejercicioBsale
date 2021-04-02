@@ -64,8 +64,8 @@ const Paginas = () => {
     return prodFiltrados;
   }
 
-  console.log(siguientesYanteriores(productos));
-  console.log(productos);
+  // console.log(siguientesYanteriores(productos));
+  // console.log(productos);
 
   const handleSiguientes = () => {
     dispatch(incrementoContador());
@@ -84,7 +84,7 @@ const Paginas = () => {
   var corte = 100;
   function myFunction() {
     setonOff("on");
-    console.log(onOff);
+    // console.log(onOff);
   }
 
   while (productos.length === 0 && interruptor === false && corte !== 0) {
@@ -120,7 +120,7 @@ const Paginas = () => {
           >
             <CircularProgress />
           </div>
-        ) : onOff === "on" ? (
+        ) : onOff === "on" && prodFiltrados.length === 0 ? (
           leyendaSinProductos
         ) : (
           leyendaTuBusqueda
