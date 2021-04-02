@@ -7,7 +7,8 @@ function ProductCard({ img, title, price, discount }) {
     <div className="card z-depth-2">
       <div>
         <div className="card-image waves-block waves-light center-align">
-          <img src={img} alt="" className="activator center-align" />
+          <img src={img} 
+          alt='Imagen no disponible' className="activator center-align" />
         </div>
       </div>
       <div style={{ display: "flex", marginRigth: 300, flexWrap: "nowrap" }}>
