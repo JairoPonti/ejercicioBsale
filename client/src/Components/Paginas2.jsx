@@ -87,7 +87,7 @@ const Paginas = () => {
     console.log(onOff);
   }
 
-  while (productos.length === 0 && (interruptor === false) & (corte !== 0)) {
+  while (productos.length === 0 && interruptor === false && corte !== 0) {
     setTimeout(myFunction, 3000);
     corte = corte - 1;
   }
@@ -108,7 +108,7 @@ const Paginas = () => {
               />
             </div>
           ))
-        ) : (onOff === "off") & (prodFiltrados.length === 0) &&
+        ) : onOff === "off" && prodFiltrados.length === 0 &&
           interruptor === false ? (
           <div
             style={{
