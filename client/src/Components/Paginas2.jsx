@@ -64,27 +64,23 @@ const Paginas = () => {
     return prodFiltrados;
   }
 
-  // console.log(siguientesYanteriores(productos));
-  // console.log(productos);
-
   const handleSiguientes = () => {
     dispatch(incrementoContador());
     dispatch(siguientesProductos());
     siguientesYanteriores(productos);
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   };
 
   const handleAnteriores = () => {
     dispatch(decrementoContador());
     dispatch(anterioresProductos());
     siguientesYanteriores(productos);
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   };
 
   var corte = 20;
   function myFunction() {
     setonOff("on");
-    // console.log(onOff);
   }
 
   while (productos.length === 0 && interruptor === false && corte !== 0) {
@@ -92,7 +88,6 @@ const Paginas = () => {
     corte = corte - 1;
   }
 
-  console.log(onOff);
   return (
     <div>
       <div className="row" style={{ padding: 20, paddingTop: 50 }}>
@@ -100,7 +95,7 @@ const Paginas = () => {
           prodFiltrados.map((e) => (
             <div className="col s13 m6 l4 " key={e.id}>
               <ProductCard
-                img= {e.url_image} 
+                img={e.url_image}
                 title={e.name}
                 price={e.price}
                 discount={e.discount}
@@ -108,7 +103,8 @@ const Paginas = () => {
               />
             </div>
           ))
-        ) : onOff === "off" && prodFiltrados.length === 0 &&
+        ) : onOff === "off" &&
+          prodFiltrados.length === 0 &&
           interruptor === false ? (
           <div
             style={{
@@ -120,7 +116,7 @@ const Paginas = () => {
           >
             <CircularProgress />
           </div>
-        ) : onOff === "on"  && prodFiltrados.length === 0 ? (
+        ) : onOff === "on" && prodFiltrados.length === 0 ? (
           leyendaSinProductos
         ) : (
           leyendaTuBusqueda
@@ -130,7 +126,7 @@ const Paginas = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-around",
           alignItems: "flex-end",
           width: 300,
           height: 150,
@@ -147,7 +143,7 @@ const Paginas = () => {
             anteriores
           </button>
         ) : null}
-        <hr/>
+
         {prodFiltrados.length !== 0 && contador !== arrSig - 1 ? (
           <button
             className="btn active cyan darken-3"

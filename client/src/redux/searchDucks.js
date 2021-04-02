@@ -104,16 +104,8 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
 //:::OBTENER PRODUCTOS POR CATEGORIA
 
 export const categorySearch = (val) => async (dispatch, getState) => {
-  // const max = getState().productos.max;
-  // const min = getState().productos.min;
-  // const array = getState().productos.array;
-  // console.log(min);
-  // console.log(max);
-  // console.log(array);
-
   try {
     const res = await axios.get(`/search/category?q=${val}`);
-    // console.log(res.data[0]);
     dispatch({
       type: CATEGORY_SEARCH,
       payload: res.data[0],
@@ -127,7 +119,6 @@ export const categorySearch = (val) => async (dispatch, getState) => {
 
 export const paraFiltrarMenorP = () => (dispatch, getState) => {
   const arr = getState().productos.array;
-  console.log(arr);
   dispatch({
     type: PARA_FILTRAR_MENOR_PRECIO,
     payload: arr.sort(function (prev, next) {
@@ -138,7 +129,6 @@ export const paraFiltrarMenorP = () => (dispatch, getState) => {
 
 export const paraFiltrarMayorP = () => (dispatch, getState) => {
   const arra = getState().productos.array;
-  console.log(arra);
   dispatch({
     type: PARA_FILTRAR_MAYOR_PRECIO,
     payload: arra.sort(function (prev, next) {
@@ -178,8 +168,6 @@ export const anterioresProductos = () => async (dispatch, getState) => {
 //::: RESET INDICES
 
 export const resetIndices = () => async (dispatch) => {
-  
-
   dispatch({
     type: RESET_INDICES,
     payload: {
