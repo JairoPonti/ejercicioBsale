@@ -104,9 +104,9 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
 //:::OBTENER PRODUCTOS POR CATEGORIA
 
 export const categorySearch = (val) => async (dispatch, getState) => {
-  const max = getState().productos.max;
-  const min = getState().productos.min;
-  const array = getState().productos.array;
+  // const max = getState().productos.max;
+  // const min = getState().productos.min;
+  // const array = getState().productos.array;
   // console.log(min);
   // console.log(max);
   // console.log(array);
