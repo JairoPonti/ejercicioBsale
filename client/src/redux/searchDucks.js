@@ -104,16 +104,16 @@ export const obtenerProductos = (valor) => async (dispatch, getState) => {
 //:::OBTENER PRODUCTOS POR CATEGORIA
 
 export const categorySearch = (val) => async (dispatch, getState) => {
-  const max = getState().productos.max;
-  const min = getState().productos.min;
-  const array = getState().productos.array;
-  console.log(min);
-  console.log(max);
-  console.log(array);
+  // const max = getState().productos.max;
+  // const min = getState().productos.min;
+  // const array = getState().productos.array;
+  // console.log(min);
+  // console.log(max);
+  // console.log(array);
 
   try {
     const res = await axios.get(`/search/category?q=${val}`);
-    console.log(res.data[0]);
+    // console.log(res.data[0]);
     dispatch({
       type: CATEGORY_SEARCH,
       payload: res.data[0],
