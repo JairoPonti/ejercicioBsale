@@ -13,8 +13,8 @@ import {
 
 const Catalogo = () => {
   const dispatch = useDispatch();
-  // var arr = useSelector((store) => store.productos.array[0]);
-  // console.log(arr);
+  var arr = useSelector((store) => store.productos.array[0]);
+  console.log(arr);
 
   const res = useSelector((store) => store.productos.array);
 
